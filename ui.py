@@ -1,5 +1,17 @@
+from Artstore import Artist, Artwork
+
+
+def get_artist_data():
+    name = get_non_empty_string('Enter artist name: ').capitalize()
+    email = get_non_empty_string('Enter aritst email: ')
+
+    return Artist(name,email)
+
+def get_artwork_data():
+    return None
+
 def get_non_empty_string(question):
-    # todo validation
+
     return input(question)
 
 

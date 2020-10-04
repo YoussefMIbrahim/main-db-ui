@@ -65,15 +65,14 @@ def search_for_artist(name):
 
     find_artist_sql = 'SELECT * FROM artists WHERE UPPER(name) = UPPER(?)'
 
-    print('THIS IS WHERE THE NAME IS SUPPOSED TO GO: ' + name)
 
     con = sqlite3.connect(database)
-    res = con.execute(find_artist_sql, (name))
-    # artist = res.fetchone()
+    res = con.execute(find_artist_sql, (name,))
+    artist = res.fetchone()
 
     con.close()
 
-    # return artist
+    return artist
 
 def add_new_artwork(artwork):
 
