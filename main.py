@@ -15,15 +15,16 @@ def main():
             add_artist()
         elif task == '2':
             add_artwork()
-        elif task == '3':
-            # search_by_artist()
-        elif task == '4':
-            # search_available_by_artist()
-        elif task == '5':
-            # change_availability()
-        elif task == '6':
-            # delete_art()
+        # elif task == '3':
+        #     # search_by_artist()
+        # elif task == '4':
+        #     # search_available_by_artist()
+        # elif task == '5':
+        #     # change_availability()
+        # elif task == '6':
+        #     # delete_art()
         elif task.upper() == 'Q':
+            print('Thanks. see you later!')
             break
         # etc... 
 
@@ -39,8 +40,8 @@ def print_menu():
 
 def add_artist():
     # get input 
-    name = ui.get_non_empty_string('Artist name?')
-    email = ui.get_non_empty_string('Artist email?')
+    name = ui.get_non_empty_string('Enter artist name: ')
+    email = ui.get_non_empty_string('Enter aritst email: ')
     
     database.add_artist(name, email)
 
