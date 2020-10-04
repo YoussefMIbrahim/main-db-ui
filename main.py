@@ -1,7 +1,6 @@
 import ui 
 import Artstore 
 from Artstore import Artist, Artwork
-# from artists import Artist, Artwork
 
 def main():
     print_menu()
@@ -42,7 +41,7 @@ def print_menu():
 def add_artist():
 
     try:
-        name = ui.get_non_empty_string('Enter artist name: ')
+        name = ui.get_non_empty_string('Enter artist name: ').capitalize()
         email = ui.get_non_empty_string('Enter aritst email: ')
 
         new_artist = Artist(name,email)
@@ -52,11 +51,17 @@ def add_artist():
         print('Cannot add the same artist')
 
 def add_artwork():
-    artist = ui.get_non_empty_string('Enter Artist name": ')
+    artist = ui.get_non_empty_string('What is the artists name? ').capitalize()
     name_of_artwork = ui.get_non_empty_string('Name of artwork? ')
     price = ui.get_positive_float('What is the price? ')
-    avialability = ui.get_true_or_false('Is the artwork available?')
+    availability = ui.get_true_or_false('Is the artwork available?')
      
+    artist_found = Artstore.search_for_artist(artist)
+    print('THIS IS WHERE THE FOUND PART IS ' + artist_found)
+    if artist_found == None:
+        print('No artist with that name exists')
+    else:
+        new_artwork = Artwork(artist_found.artistID,name_of_artwork,price,availability)
 
 if __name__ == "__main__":
     main()
