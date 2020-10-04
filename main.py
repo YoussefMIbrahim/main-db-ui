@@ -48,19 +48,16 @@ def add_artist():
         print('Cannot add the same artist')
 
 def add_artwork():
-
-    artist = ui.get_non_empty_string('What is the artists name? ').capitalize()
-    name_of_artwork = ui.get_non_empty_string('Name of artwork? ')
-    price = ui.get_positive_float('What is the price? ')
-    availability = ui.get_true_or_false('Is the artwork available?')
      
+    artwork , artist = ui.get_artwork_data()
+
     artist_found = Artstore.search_for_artist(artist)
 
     try:
         if artist_found == None:
             print('No artist with that name exists')
         else:
-            new_artwork = Artwork(artist_found[0],name_of_artwork,price,availability)
+            new_artwork = Artwork(artist_found[0],artwork.artwork_name,artwork.price,artwork.availability)
             Artstore.add_new_artwork(new_artwork)
             print('well done')
     except Exception:

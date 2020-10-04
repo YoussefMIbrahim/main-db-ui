@@ -8,11 +8,21 @@ def get_artist_data():
     return Artist(name,email)
 
 def get_artwork_data():
-    return None
+
+    artist = get_non_empty_string('What is the artists name? ').capitalize()
+    name_of_artwork = get_non_empty_string('Name of artwork? ')
+    price = get_positive_float('What is the price? ')
+    availability = get_true_or_false('Is the artwork available?')
+
+    return Artwork(None,name_of_artwork,price,availability) , artist
 
 def get_non_empty_string(question):
-
-    return input(question)
+    while True:
+        answer_string = input(question)
+        if answer_string.strip() == '':
+            print('Please enter a name')   
+        else:
+            return answer_string
 
 
 def get_positive_float(question):
