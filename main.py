@@ -15,8 +15,8 @@ def main():
             add_artist()
         elif task == '2':
             add_artwork()
-        # elif task == '3':
-        #     # search_by_artist()
+        elif task == '3':
+            search_by_artist()
         # elif task == '4':
         #     # search_available_by_artist()
         # elif task == '5':
@@ -54,14 +54,27 @@ def add_artwork():
     artist_found = Artstore.search_for_artist(artist)
 
     try:
-        if artist_found == None:
+        if not artist_found:
             print('No artist with that name exists')
         else:
             new_artwork = Artwork(artist_found[0],artwork.artwork_name,artwork.price,artwork.availability)
             Artstore.add_new_artwork(new_artwork)
-            print('well done')
+            print('Artwork successfully added')
     except Exception:
         print('sorry artwork already exists')
+
+def search_by_artist():
+
+    artist_name = ui.get_non_empty_string('Enter name of artist: ')
+
+    artist_found = Artstore.search_for_artist(artist_name)
+
+    if not artist_found:
+        print('No artist with that name exists')
+    else:
+        artworks = Artstore.search_for_all_artwok(artist_found[0])
+        ui.print_artworks(artworks)
+       
 
 if __name__ == "__main__":
     main()

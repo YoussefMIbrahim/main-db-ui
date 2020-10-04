@@ -16,6 +16,19 @@ def get_artwork_data():
 
     return Artwork(None,name_of_artwork,price,availability) , artist
 
+def print_artworks(artworks):
+
+    availability = ''
+
+    print('\n{:<20s} {:<20s} {:<20s}\n'.format('ArtWork', 'Price', 'Availability'))
+    for art in artworks:
+        if art[2] == 0:
+            availability = 'Not available'
+        else:
+            availability = 'Avaialable'
+
+        print(f'{art[0]:<20} ${art[1]:<20} {availability:<20}')
+
 def get_non_empty_string(question):
     while True:
         answer_string = input(question)

@@ -72,7 +72,10 @@ def search_for_artist(name):
 
     con.close()
 
-    return artist
+    if artist == None:
+        return False
+    else:
+        return artist
 
 def add_new_artwork(artwork):
 
@@ -86,6 +89,20 @@ def add_new_artwork(artwork):
     finally:
         con.close()
 
+def search_for_all_artwok(artistID):
+
+    get_all_artwork = 'SELECT * FROM artwork WHERE workArtist = ?'
+
+    con = sqlite3.connect(database)
+    res = con.execute(get_all_artwork, (artistID,))
+
+    artworks = []
+
+    for r in res:
+        artworks.append(r)
+    con.close()
+
+    return artworks
         
 
 # todo other DB interaction
