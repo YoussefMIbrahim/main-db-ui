@@ -1,11 +1,12 @@
 import ui 
-import database 
-from artists import Artist, Artwork
+import Artstore 
+from Artstore import Artist, Artwork
+# from artists import Artist, Artwork
 
 def main():
     print_menu()
-    database.create_artist_table()
-    database.create_artwork_table()
+    Artstore.create_artist_table()
+    Artstore.create_artwork_table()
     while True:
         # what does the user want to do?
         # print menu
@@ -39,11 +40,16 @@ def print_menu():
     print('Q: Quit')
 
 def add_artist():
-    # get input 
-    name = ui.get_non_empty_string('Enter artist name: ')
-    email = ui.get_non_empty_string('Enter aritst email: ')
-    
-    database.add_artist(name, email)
+
+    try:
+        name = ui.get_non_empty_string('Enter artist name: ')
+        email = ui.get_non_empty_string('Enter aritst email: ')
+
+        new_artist = Artist(name,email)
+
+        Artstore.add_artist(new_artist)
+    except Exception:
+        print('Cannot add the same artist')
 
 def add_artwork():
     artist = ui.get_non_empty_string('Enter Artist name": ')
