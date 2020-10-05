@@ -3,10 +3,11 @@ import Artstore
 from Artstore import Artist, Artwork
 
 def main():
-    print_menu()
     Artstore.create_artist_table()
     Artstore.create_artwork_table()
     while True:
+        print_menu()
+
         # what does the user want to do?
         # print menu
         task = input('Choose a task: ') 
@@ -17,8 +18,8 @@ def main():
             add_artwork()
         elif task == '3':
             search_by_artist()
-        # elif task == '4':
-        #     # search_available_by_artist()
+        elif task == '4':
+            search_by_artist_available()
         # elif task == '5':
         #     # change_availability()
         # elif task == '6':
@@ -30,7 +31,7 @@ def main():
 
 def print_menu():
 
-    print('1: New Artist')
+    print('\n1: New Artist')
     print('2: Add new artwork')
     print('3: Search artwork by artist')
     print('4: Search available artworks by artist')
@@ -74,6 +75,25 @@ def search_by_artist():
     else:
         artworks = Artstore.search_for_all_artwok(artist_found[0])
         ui.print_artworks(artworks)
+
+def search_by_artist_available():
+
+    artist_name = input('Enter name of artist')
+
+    artist_found = Artstore.search_for_artist(artist_name)
+
+    if not artist_found:
+        print('No artist with that name exists')
+    else:
+        artworks = Artstore.search_for_all_artwok(artist_found[0])
+        for art in artworks:
+            if art[2] == 0:
+                artworks.remove(art)
+        
+        ui.print_artworks(artworks)
+    
+
+
        
 
 if __name__ == "__main__":
