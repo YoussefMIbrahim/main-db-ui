@@ -77,6 +77,22 @@ def search_for_artist(name):
     else:
         return artist
 
+def search_for_artwork(artwork_name):
+
+    find_artwork_sql = 'SELECT * FROM artwork WHERE UPPER(name) = UPPER(?)'
+
+    con = sqlite3.connect(database)
+    res = con.execute(find_artwork_sql, (artwork_name,))
+    artwork = res.fetchone()
+
+    con.close()
+
+    if artwork == None:
+        return False
+    else:
+        return artwork
+
+
 def add_new_artwork(artwork):
 
     add_artwork_sql = 'INSERT INTO artwork (name, price, available, workArtist) VALUES (?,?,?,?)'
@@ -91,10 +107,10 @@ def add_new_artwork(artwork):
 
 def search_for_all_artwok(artistID):
 
-    get_all_artwork = 'SELECT * FROM artwork WHERE workArtist = ?'
+    get_all_artwork_sql = 'SELECT * FROM artwork WHERE workArtist = ?'
 
     con = sqlite3.connect(database)
-    res = con.execute(get_all_artwork, (artistID,))
+    res = con.execute(get_all_artwork_sql, (artistID,))
 
     artworks = []
 
@@ -103,6 +119,19 @@ def search_for_all_artwok(artistID):
     con.close()
 
     return artworks
+
+def change_availability(availability, artwork_name):
+
+    update_artwork_availability= 'UPDATE artwork SET available = ? WHERE name = ?'
+
+    with sqlite3.connect(database) as con:
+        update = con.execute(update_artwork_availability,(availability, artwork_name))
+        rows = update.rowcount
+    con.close()
+
+    if rows == 0:
+        raise ArtError(f'No artwork named {artwork_name} was found.')
+
         
 
 # todo other DB interaction

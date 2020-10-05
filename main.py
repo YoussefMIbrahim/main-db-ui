@@ -20,10 +20,10 @@ def main():
             search_by_artist()
         elif task == '4':
             search_by_artist_available()
-        # elif task == '5':
-        #     # change_availability()
+        elif task == '5':
+            change_availability()
         # elif task == '6':
-        #     # delete_art()
+            # delete_art()
         elif task.upper() == 'Q':
             print('Thanks. see you later!')
             break
@@ -78,7 +78,7 @@ def search_by_artist():
 
 def search_by_artist_available():
 
-    artist_name = input('Enter name of artist')
+    artist_name = input('Enter name of artist: ')
 
     artist_found = Artstore.search_for_artist(artist_name)
 
@@ -91,6 +91,22 @@ def search_by_artist_available():
                 artworks.remove(art)
         
         ui.print_artworks(artworks)
+
+def change_availability():
+    
+    artwork_name = input('Enter artwork name that you want to change: ')
+
+    artwork_found = Artstore.search_for_artwork(artwork_name)
+    if not artwork_found:
+        print('No artist with that name exists')
+    else:
+        if artwork_found[2] == 0:
+            Artstore.change_availability(1,artwork_name)
+            print(f'\nAvailability of {artwork_name} changed to Available.')
+        else:
+            Artstore.change_availability(0,artwork_name)
+            print(f'\nAvailability of {artwork_name} changed to Unavailable')
+
     
 
 
