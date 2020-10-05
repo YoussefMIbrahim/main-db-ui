@@ -1,5 +1,5 @@
 import sqlite3
-from db_config import database
+from db_config import database, test_database
 
 
 
@@ -47,7 +47,6 @@ def create_artwork_table():
 
 
 def add_artist(artist):
-    # todo 
 
     sql = 'INSERT INTO artists (name , email) VALUES (?,?)'
 
@@ -150,3 +149,33 @@ def delete_artwork(artwork_name):
 
 class ArtError(Exception):
     pass
+
+
+
+def create_test_artist_table():
+
+
+    with sqlite3.connect(test_database) as conn:
+        conn.execute("CREATE TABLE IF NOT EXISTS artists(\
+            artistId INTEGER PRIMARY KEY,\
+            name TEXT UNIQUE, \
+            email TEXT UNIQUE)")
+    conn.close()
+
+        
+
+def create_test_artwork_table():
+    with sqlite3.connect(test_database) as conn:
+        conn.execute("CREATE TABLE IF NOT EXISTS artwork(\
+            name TEXT UNIQUE, \
+            price INTEGER,\
+            available BOOLEAN,\
+            workArtist INTEGER,\
+            FOREIGN KEY(workArtist) REFERENCES astists(arstistId))")
+    conn.close()
+
+def drop_test_tables():
+    with sqlite3.connect(test_database) as con:
+        con.execute('DROP TABLE IF EXISTS artists')
+        con.execute('DROP TABLE IF EXISTS artwork')
+    con.close
