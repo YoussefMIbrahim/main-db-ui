@@ -3,13 +3,13 @@ import Artstore
 from Artstore import Artist, Artwork
 
 def main():
+    # creating my tables
     Artstore.create_artist_table()
     Artstore.create_artwork_table()
     while True:
+        #printing menu
         print_menu()
 
-        # what does the user want to do?
-        # print menu
         task = input('Choose a task: ') 
 
         if task == '1':
@@ -27,8 +27,8 @@ def main():
         elif task.upper() == 'Q':
             print('Thanks. see you later!')
             break
-        # etc... 
 
+# # funtion for printing the menu
 def print_menu():
 
     print('\n1: New Artist')
@@ -39,6 +39,7 @@ def print_menu():
     print('6: Delete artwork')
     print('Q: Quit')
 
+# adding artist with validation
 def add_artist():
 
     try:
@@ -48,6 +49,7 @@ def add_artist():
     except Exception:
         print('Cannot add the same artist')
 
+# passing data to database to add artwork, after chceking if the author of the piece exists
 def add_artwork():
      
     artwork , artist = ui.get_artwork_data()
@@ -64,6 +66,7 @@ def add_artwork():
     except Exception:
         print('sorry artwork already exists')
 
+# passing the name of the artist to the database to check if they exist, then fetching their works
 def search_by_artist():
 
     artist_name = ui.get_non_empty_string('Enter name of artist: ')
@@ -76,6 +79,8 @@ def search_by_artist():
         artworks = Artstore.search_for_all_artwok(artist_found[0])
         ui.print_artworks(artworks)
 
+# passing the name of the artist to the database to check if they exist, 
+# then fetching their avaialble works
 def search_by_artist_available():
 
     artist_name = ui.get_non_empty_string('Enter name of artist: ')
@@ -92,6 +97,8 @@ def search_by_artist_available():
         
         ui.print_artworks(artworks)
 
+#passing the database a new boolean depending on wether or not the 
+#artpiece is available 
 def change_availability():
     
     artwork_name = ui.get_non_empty_string('Enter artwork name that you want to change: ')
@@ -107,6 +114,7 @@ def change_availability():
             Artstore.change_availability(0,artwork_name)
             print(f'\nAvailability of {artwork_name} changed to Unavailable')
 
+# checking if art exists then deleting it by name 
 def delete_art():
 
     artwork_name = ui.get_non_empty_string('Enter artwork name that you want to delete: ')
@@ -122,8 +130,6 @@ def delete_art():
             print(f'{artwork_name} has beed deleted')
     
 
-
-       
 
 if __name__ == "__main__":
     main()

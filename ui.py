@@ -1,12 +1,13 @@
 from Artstore import Artist, Artwork
 
-
+# getting the data needed for artist class
 def get_artist_data():
     name = get_non_empty_string('Enter artist name: ').capitalize()
     email = get_non_empty_string('Enter aritst email: ')
 
     return Artist(name,email)
 
+#getting the data needed for artworks class
 def get_artwork_data():
 
     artist = get_non_empty_string('What is the artists name? ').capitalize()
@@ -16,6 +17,7 @@ def get_artwork_data():
 
     return Artwork(None,name_of_artwork,price,availability) , artist
 
+# loop that formats and prints a list of artworks
 def print_artworks(artworks):
 
     availability = ''
@@ -29,6 +31,8 @@ def print_artworks(artworks):
 
         print(f'{art[0]:<20} ${art[1]:<20} {availability:<20}')
 
+
+# input that makes sure the string is not empty
 def get_non_empty_string(question):
     while True:
         answer_string = input(question)
@@ -37,7 +41,7 @@ def get_non_empty_string(question):
         else:
             return answer_string
 
-
+#input that gets a float and makes sure it's poitive and a number
 def get_positive_float(question):
     while True:
         try:
@@ -49,7 +53,7 @@ def get_positive_float(question):
         except ValueError:
             print('Please enter a possitive number')
     
-
+# input that gets a true or false and ensures the user is entering the required responses
 def get_true_or_false(question):
 
     while True:
