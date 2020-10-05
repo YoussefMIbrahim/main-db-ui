@@ -122,15 +122,27 @@ def search_for_all_artwok(artistID):
 
 def change_availability(availability, artwork_name):
 
-    update_artwork_availability= 'UPDATE artwork SET available = ? WHERE name = ?'
+    update_artwork_availability_sql = 'UPDATE artwork SET available = ? WHERE name = ?'
 
     with sqlite3.connect(database) as con:
-        update = con.execute(update_artwork_availability,(availability, artwork_name))
+        update = con.execute(update_artwork_availability_sql,(availability, artwork_name))
         rows = update.rowcount
     con.close()
 
     if rows == 0:
         raise ArtError(f'No artwork named {artwork_name} was found.')
+
+def delete_artwork(artwork_name):
+
+    delete_sql = 'DELETE FROM artwork WHERE name = ?'
+
+    with sqlite3.connect(database) as con:
+        delete = con.execute(delete_sql, (artwork_name,))
+        rows = delete.rowcount
+    con.close()
+
+    if rows == 0:
+        raise ArtError(f'No artowrk named {artwork_name} was found.')
 
         
 

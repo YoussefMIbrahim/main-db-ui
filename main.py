@@ -22,8 +22,8 @@ def main():
             search_by_artist_available()
         elif task == '5':
             change_availability()
-        # elif task == '6':
-            # delete_art()
+        elif task == '6':
+            delete_art()
         elif task.upper() == 'Q':
             print('Thanks. see you later!')
             break
@@ -78,7 +78,7 @@ def search_by_artist():
 
 def search_by_artist_available():
 
-    artist_name = input('Enter name of artist: ')
+    artist_name = ui.get_non_empty_string('Enter name of artist: ')
 
     artist_found = Artstore.search_for_artist(artist_name)
 
@@ -94,11 +94,11 @@ def search_by_artist_available():
 
 def change_availability():
     
-    artwork_name = input('Enter artwork name that you want to change: ')
+    artwork_name = ui.get_non_empty_string('Enter artwork name that you want to change: ')
 
     artwork_found = Artstore.search_for_artwork(artwork_name)
     if not artwork_found:
-        print('No artist with that name exists')
+        print('No artwork with that name exists')
     else:
         if artwork_found[2] == 0:
             Artstore.change_availability(1,artwork_name)
@@ -107,6 +107,19 @@ def change_availability():
             Artstore.change_availability(0,artwork_name)
             print(f'\nAvailability of {artwork_name} changed to Unavailable')
 
+def delete_art():
+
+    artwork_name = ui.get_non_empty_string('Enter artwork name that you want to delete: ')
+
+    artwork_found = Artstore.search_for_artwork(artwork_name)
+
+    if not artwork_found:
+        print('No arwork with that name exists')
+    else:
+        confirm = ui.get_true_or_false('Are you sure you want to delete')
+        if confirm:
+            Artstore.delete_artwork(artwork_name)
+            print(f'{artwork_name} has beed deleted')
     
 
 
