@@ -100,19 +100,21 @@ def search_by_artist_available():
 #passing the database a new boolean depending on wether or not the 
 #artpiece is available 
 def change_availability():
-    
-    artwork_name = ui.get_non_empty_string('Enter artwork name that you want to change: ')
+    try: 
+        artwork_name = ui.get_non_empty_string('Enter artwork name that you want to change: ')
 
-    artwork_found = Artstore.search_for_artwork(artwork_name)
-    if not artwork_found:
-        print('No artwork with that name exists')
-    else:
-        if artwork_found[2] == 0:
-            Artstore.change_availability(1,artwork_name)
-            print(f'\nAvailability of {artwork_name} changed to Available.')
+        artwork_found = Artstore.search_for_artwork(artwork_name)
+        if not artwork_found:
+            print('No artwork with that name exists')
         else:
-            Artstore.change_availability(0,artwork_name)
-            print(f'\nAvailability of {artwork_name} changed to Unavailable')
+            if artwork_found[2] == 0:
+                Artstore.change_availability(1,artwork_name)
+                print(f'\nAvailability of {artwork_name} changed to Available.')
+            else:
+                Artstore.change_availability(0,artwork_name)
+                print(f'\nAvailability of {artwork_name} changed to Unavailable')
+    except NameError:
+        print('Artwork does not exist')
 
 # checking if art exists then deleting it by name 
 def delete_art():
